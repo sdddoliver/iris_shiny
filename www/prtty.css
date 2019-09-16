@@ -1,0 +1,4 @@
+body {  background-image: url(/tiedye.jpg); } 
+
+panel.background = element_rect(fill, colour, size, 
+                                      linetype, color)
