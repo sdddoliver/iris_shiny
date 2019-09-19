@@ -8,9 +8,9 @@ function(input, output, session) {
     iris[, c(input$xcol, input$ycol)]
   })
   
-  clusters <- reactive({
+  clusters <- reactive(
     kmeans(selectedData(), input$clusters)
-  })
+  )
   
   output$plot1 <- renderPlot({
     #new colors, it's all purple
@@ -21,8 +21,7 @@ function(input, output, session) {
     plot(selectedData(),
          col = clusters()$cluster,
          pch = 20,
-         cex = 3
-    )
+         cex = 3)
     points(clusters()$centers,
            pch = 4,
            cex = 4,
@@ -31,4 +30,9 @@ function(input, output, session) {
            col = "#9693e6")
   })
   
+  output$downloadPlot <- downloadHandler(
+    filename = 'irishist.png',
+    content = function(file){ggsave(file, output$plot1)},
+    contentType = "image/png"
+  )
 }
